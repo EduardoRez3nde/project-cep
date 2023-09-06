@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DsViaCep</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    
+    <header class="nav-container">
+        <nav class="nav-main">
+            <h1>DSViaCEP</h1>
+            <div class="contact-link">Contato</div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="form-section" class="form-container">
+            <div class="card-form">
+                <form name="newAddress">
+                    <div class="form-control">
+                        <label for="cep">CEP: </label>
+                        <input type="text" name="cep" id="cep" class="form-input" placeholder="CEP">
+                        <div class="error-message" data-error="cep"></div>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="street">Logradouro: </label>
+                        <input type="text" name="street" id="street" class="form-input" placeholder="Logradouro" disabled>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="number">Número: </label>
+                        <input type="text" name="number" id="number" class="form-input" placeholder="Número">
+                        <div class="error-message" data-error="number"></div>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="city">Cidade: </label>
+                        <input type="text" name="city" id="city" class="form-input" placeholder="Cidade" disabled>
+                    </div>
+
+                    <div class="btn-container">
+                        <button id="btn-enviar" class="btn btn-left" type="submit">Salvar</button>
+                        <button id="btn-clear" class="btn btn-right">Limpar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="list-section" class="list-container">
+            <div class="card-list-item">
+                <h3>São Paulo</h3>
+                <p class="address-line">Rua dos Jardins, 720</p>
+                <p class="address-cep">11200-345</p>
+            </div>
+            <div class="card-list-item">
+                <h3>São Paulo</h3>
+                <p class="address-line">Rua dos Jardins, 720</p>
+                <p class="address-cep">11200-345</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module" src="./js/script.js"></script>
+
+</body>
+</html>
