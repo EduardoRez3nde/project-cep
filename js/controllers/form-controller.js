@@ -1,6 +1,6 @@
 import Address from "../models/address.js";
 import * as addressService from "../services/address-service.js";
-import RequestException from "../services/exceptions/request-exception.js";
+import * as listController from "../controllers/list-controller.js";
 
 class State {
     constructor() {
@@ -38,17 +38,33 @@ export function init() {
     state.btnClear.addEventListener('click', handleInputBtnClear);
     state.btnSave.addEventListener('click', handleInputBtnSave);
     state.inputCep.addEventListener('change', handleInputCepChange);
+    state.inputNumber.addEventListener('keyup', handleInputNumberKeyup);
 
 }
 
-const handleInputBtnSave = async (event) => {
-    event.preventDefault();
-    console.log(event.target);
+const handleInputNumberKeyup = (event) => {
+    state.address.number = event.target.value;
+}
 
+const handleInputBtnSave = (event) => {
+
+    const errors = addressService.getErrors(state.address);
+    const keys = Object.keys(errors);
+    event.preventDefault();
+
+    if (keys.length > 0) {
+        keys.forEach(key => setFormError(key, errors[key]));
+    }
+    else {
+        listController.addCard(state.address);
+        clearForm();
+    }
 }
 
 const handleInputCepChange = async (event) => {
+
     const cep = event.target.value;
+
     try{
         const address = await addressService.findByCep(cep);
 
@@ -59,7 +75,6 @@ const handleInputCepChange = async (event) => {
 
         setFormError("cep", "");
         state.inputNumber.focus();
-        console.log(address);
     }
     catch (e) {
         clearForm();
@@ -78,6 +93,8 @@ const handleInputNumberChange = (event) => {
     if (event.target.value == "") {
         setFormError('number', 'Campo Requerido');
     }
+
+    else{setFormError("number", "")}
 }
 
 // Evento limpar mensagem
@@ -94,7 +111,9 @@ const clearForm = () => {
     state.inputCity.value = "";
     state.inputNumber.value = "";
     state.inputStreet.value = "";
+
     setFormError("cep", "");
+    state.address = new Address();
     state.inputCep.focus();
 }
 

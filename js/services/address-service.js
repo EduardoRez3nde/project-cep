@@ -7,3 +7,17 @@ export const findByCep = async (cep) => {
     const result = await getJson(url);
     return new Address(result.cep, result.logradouro, null, result.localidade);
 }
+
+export const getErrors = (address) => {
+    const errors = {};
+
+    if (!address.cep || address.cep == "") {
+        errors.cep = "Campo Requerido";
+    }
+
+    if (!address.number || address.number == "") {
+        errors.number = "Campo Requerido";
+    }
+
+    return errors;
+}
